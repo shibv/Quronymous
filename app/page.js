@@ -84,42 +84,44 @@ function MainContent() {
         transition={{ duration: 0.5 }}
       >
         {showPasswordNotice && (
-          <Card className="shadow-lg mb-8 bg-yellow-100 border border-yellow-300">
-            <CardHeader>
-              <CardTitle className="text-xl font-semibold">
-                Important: Save Your Login Information
-              </CardTitle>
-              <CardDescription>
-                This is your only chance to copy your login information. Save it securely!
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <p className="font-semibold">Username:</p>
-                <p className="text-sm bg-secondary p-2 rounded">{user.username}</p>
-                <Button onClick={() => copyToClipboard(user.username)} variant="outline" className="mt-2">
-                  Copy Username
-                  <Copy className="ml-2 h-4 w-4" />
-                </Button>
-              </div>
-              <div className="flex items-center mt-4">
-                <p className="font-semibold">Password:</p>
-                <p className="text-sm bg-secondary p-2 rounded flex-1">
-                  {isPasswordVisible ? initialPassword : '••••••••••'}
-                </p>
-                <Button variant="ghost" onClick={() => setIsPasswordVisible(!isPasswordVisible)} className="ml-2">
-                  {isPasswordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                </Button>
-              </div>
-              <Button onClick={() => {
-                copyToClipboard(initialPassword);
-                setShowPasswordNotice(false);
-              }} variant="outline" className="mt-2">
-                Copy Password
-                <Copy className="ml-2 h-4 w-4" />
-              </Button>
-            </CardContent>
-          </Card>
+         <Card className="shadow-lg mb-8 bg-yellow-200 dark:bg-yellow-800 border border-yellow-400 dark:border-yellow-600">
+         <CardHeader>
+           <CardTitle className="text-xl font-semibold text-gray-800 dark:text-gray-200">
+             Important: Save Your Login Information(Take a screenshot)
+           </CardTitle>
+           <CardDescription className="text-gray-700 dark:text-gray-300">
+             This is your only chance to copy your login information. Save it securely!
+             We recommend you take a screenshot and store it somewhere safe.
+           </CardDescription>
+         </CardHeader>
+         <CardContent className="space-y-4">
+           <div>
+             <p className="font-semibold text-gray-800 dark:text-gray-200">Username:</p>
+             <p className="text-sm bg-secondary p-2 rounded text-gray-800 dark:text-gray-200 dark:bg-gray-700">{user.username}</p>
+             <Button onClick={() => copyToClipboard(user.username)} variant="outline" className="mt-2">
+               Copy Username
+               <Copy className="ml-2 h-4 w-4" />
+             </Button>
+           </div>
+           <div className="flex items-center mt-4">
+             <p className="font-semibold text-gray-800 dark:text-gray-200">Password:</p>
+             <p className="text-sm bg-secondary p-2 rounded flex-1 text-gray-800 dark:text-gray-200 dark:bg-gray-700">
+               {isPasswordVisible ? initialPassword : '••••••••••'}
+             </p>
+             <Button variant="ghost" onClick={() => setIsPasswordVisible(!isPasswordVisible)} className="ml-2">
+               {isPasswordVisible ? <EyeOff className="h-5 w-5 text-gray-800 dark:text-gray-200" /> : <Eye className="h-5 w-5 text-gray-800 dark:text-gray-200" />}
+             </Button>
+           </div>
+           <Button onClick={() => {
+             copyToClipboard(initialPassword);
+             setShowPasswordNotice(false);
+           }} variant="outline" className="mt-2">
+             Copy Password
+             <Copy className="ml-2 h-4 w-4" />
+           </Button>
+         </CardContent>
+       </Card>
+       
         )}
 
         <Card className="shadow-lg mb-8">
