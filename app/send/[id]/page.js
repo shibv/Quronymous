@@ -7,6 +7,8 @@ import { useParams } from 'next/navigation'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { motion } from 'framer-motion'
+import { Send, Loader2, MessageCircle } from 'lucide-react'
 
 export default function SendMessage() {
   const [message, setMessage] = useState('')
@@ -20,7 +22,7 @@ export default function SendMessage() {
       return
     }
 
-    setIsSending(true); // Indicate sending in progress
+    setIsSending(true)
     try {
       const response = await fetch('/api/send-message', {
         method: 'POST',
@@ -35,43 +37,73 @@ export default function SendMessage() {
       }
 
       toast.success('Message sent successfully!')
-      setMessage('') // Clear the message input
-
+      setMessage('')
     } catch (error) {
       toast.error('Failed to send message. Please try again.')
     } finally {
-      setIsSending(false); // Reset sending state regardless of success or error
+      setIsSending(false)
     }
   }
 
   return (
-    <div className="container mx-auto p-4 max-w-md">
-      <Card>
-        <CardHeader>
-          <CardTitle>Send Anonymous Message</CardTitle>
-          <CardDescription>Your message will be sent anonymously</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <Textarea
-            placeholder="Type your anonymous message here"
-            value={message}
-            onChange={(e) => {
-              setMessage(e.target.value)
-              // Reset sending state if the user types a new message
-              if (isSending) {
-                setIsSending(false);
-              }
-            }}
-            rows={4}
-          />
-        </CardContent>
-        <CardFooter>
-          <Button onClick={sendMessage} className="w-full" disabled={isSending}>
-            {isSending ? 'Sending...' : 'Send Message'}
-          </Button>
-        </CardFooter>
-      </Card>
-      <ToastContainer />
+    <div className="container mx-auto p-4 max-w-2xl">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <Card className="shadow-lg">
+          <CardHeader>
+            <CardTitle className="text-2xl font-bold flex items-center">
+              <MessageCircle className="h-6 w-6 mr-2 text-primary" />
+              Send Anonymous Message
+            </CardTitle>
+            <CardDescription>Your message will be sent anonymously to the recipient</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <Textarea
+              placeholder="Type your anonymous message or question here..."
+              value={message}
+              onChange={(e) => {
+                setMessage(e.target.value)
+                if (isSending) {
+                  setIsSending(false)
+                }
+              }}
+              rows={6}
+              className="resize-none"
+            />
+            <div className="text-sm text-gray-500 dark:text-gray-400">
+              Tips:
+              <ul className="list-disc list-inside mt-2 space-y-1">
+                <li>Be respectful and constructive in your message</li>
+                <li>Ask open-ended questions to encourage thoughtful responses</li>
+                <li>Avoid sharing personal information</li>
+              </ul>
+            </div>
+          </CardContent>
+          <CardFooter>
+            <Button 
+              onClick={sendMessage} 
+              className="w-full" 
+              disabled={isSending}
+            >
+              {isSending ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Sending...
+                </>
+              ) : (
+                <>
+                  Send Message
+                  <Send className="ml-2 h-4 w-4" />
+                </>
+              )}
+            </Button>
+          </CardFooter>
+        </Card>
+      </motion.div>
+      <ToastContainer position="bottom-center" />
     </div>
   )
 }
