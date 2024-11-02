@@ -35,7 +35,6 @@ function MainContent() {
         const userData = await response.json();
         setUser(userData);
       } catch (error) {
-        // toast.error('Failed to load user data. Please login again.');
         router.push('/main');
       }
     };
@@ -48,9 +47,7 @@ function MainContent() {
         }
         const messageData = await response.json();
         setMessages(messageData);
-      } catch (error) {
-        // toast.error('Failed to load messages');
-      }
+      } catch (error) {}
     };
 
     fetchUserData();
@@ -84,6 +81,15 @@ function MainContent() {
     } catch (error) {
       toast.error('Failed to logout');
     }
+  };
+
+  const handlePasswordCopy = () => {
+    copyToClipboard(initialPassword);
+    setShowPasswordNotice(false);
+    // Remove the password from the URL after copying
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.delete('password');
+    router.replace(currentUrl.pathname);
   };
 
   if (!user) {
@@ -126,10 +132,7 @@ function MainContent() {
                   {isPasswordVisible ? <EyeOff className="h-5 w-5 text-gray-800 dark:text-gray-200" /> : <Eye className="h-5 w-5 text-gray-800 dark:text-gray-200" />}
                 </Button>
               </div>
-              <Button onClick={() => {
-                copyToClipboard(initialPassword);
-                setShowPasswordNotice(false);
-              }} variant="outline" className="mt-2">
+              <Button onClick={handlePasswordCopy} variant="outline" className="mt-2">
                 Copy Password
                 <Copy className="ml-2 h-4 w-4" />
               </Button>
