@@ -36,7 +36,7 @@ function MainContent() {
         setUser(userData);
       } catch (error) {
         toast.error('Failed to load user data. Please login again.');
-        router.push('/login');
+        router.push('/main');
       }
     };
 

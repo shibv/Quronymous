@@ -2,13 +2,14 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { motion } from 'framer-motion'
-import { UserPlus, Loader2 } from 'lucide-react'
+import { UserPlus, Loader2, Car } from 'lucide-react'
 
 export default function Register() {
   const [name, setName] = useState('')
@@ -39,7 +40,6 @@ export default function Register() {
 
       const data = await response.json()
       toast.success('Registration successful! Redirecting to your dashboard...')
-      console.log(data)
       router.push('/?password=' + data.password)
     } catch (error) {
       toast.error(error.message)
@@ -90,6 +90,14 @@ export default function Register() {
                   'Register'
                 )}
               </Button>
+            </CardFooter>
+            <CardFooter className="text-center">
+              <p className="text-sm text-muted-foreground">
+                Already have an account?{' '}
+                <Link href="/login" className="font-semibold underline">
+                  Login
+                </Link>
+              </p>
             </CardFooter>
           </form>
         </Card>
