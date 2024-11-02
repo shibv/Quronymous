@@ -26,8 +26,8 @@ export const metadata = {
     images: [
       {
         url: `${process.env.NEXT_PUBLIC_BASE_URL}/link.png`, // Using full URL
-        width: 800,
-        height: 600,
+        width: 1000,
+        height: 800,
         alt: "Quronymous - Anonymous Messaging for Friends",
       },
     ],
