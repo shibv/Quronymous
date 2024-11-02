@@ -1,29 +1,18 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { motion, AnimatePresence } from 'framer-motion'
-import { MessageCircle, Copy, LogOut, Key, Eye, EyeOff } from 'lucide-react'
+import { MessageCircle, Copy, LogOut, Key } from 'lucide-react'
 
 export default function Main() {
   const [user, setUser] = useState(null)
   const [messages, setMessages] = useState([])
-  const [showPasswordNotice, setShowPasswordNotice] = useState(false)
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const router = useRouter()
-  const searchParams = useSearchParams()
-
-  const initialPassword = searchParams.get('password')
-
-  useEffect(() => {
-    if (initialPassword) {
-      setShowPasswordNotice(true)
-    }
-  }, [initialPassword])
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -57,10 +46,16 @@ export default function Main() {
     fetchMessages()
   }, [router])
 
-  const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text)
-      .then(() => toast.success('Copied to clipboard!'))
-      .catch(() => toast.error('Failed to copy'))
+  const copyLinkToClipboard = () => {
+    navigator.clipboard.writeText(user.uniqueLink)
+      .then(() => toast.success('Link copied to clipboard!'))
+      .catch(() => toast.error('Failed to copy link'))
+  }
+
+  const copyPasswordToClipboard = () => {
+    navigator.clipboard.writeText(user.password)
+      .then(() => toast.success('Password copied to clipboard!'))
+      .catch(() => toast.error('Failed to copy password'))
   }
 
   const handleLogout = async () => {
@@ -83,53 +78,14 @@ export default function Main() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        {showPasswordNotice && (
-          <Card className="shadow-lg mb-8 bg-yellow-100 border border-yellow-300">
-            <CardHeader>
-              <CardTitle className="text-xl font-semibold">
-                Important: Save Your Login Information
-              </CardTitle>
-              <CardDescription>
-                This is your only chance to copy your login information. Save it securely!
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <p className="font-semibold">Username:</p>
-                <p className="text-sm bg-secondary p-2 rounded">{user.username}</p>
-                <Button onClick={() => copyToClipboard(user.username)} variant="outline" className="mt-2">
-                  Copy Username
-                  <Copy className="ml-2 h-4 w-4" />
-                </Button>
-              </div>
-              <div className="flex items-center mt-4">
-                <p className="font-semibold">Password:</p>
-                <p className="text-sm bg-secondary p-2 rounded flex-1">
-                  {isPasswordVisible ? initialPassword : '••••••••••'}
-                </p>
-                <Button variant="ghost" onClick={() => setIsPasswordVisible(!isPasswordVisible)} className="ml-2">
-                  {isPasswordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                </Button>
-              </div>
-              <Button onClick={() => {
-                copyToClipboard(initialPassword)
-                setShowPasswordNotice(false)
-              }} variant="outline" className="mt-2">
-                Copy Password
-                <Copy className="ml-2 h-4 w-4" />
-              </Button>
-            </CardContent>
-          </Card>
-        )}
-
         <Card className="shadow-lg mb-8">
           <CardHeader>
             <CardTitle className="text-2xl font-bold flex items-center justify-between">
               <span>Welcome, {user.name}</span>
-              {/* <Button variant="ghost" onClick={handleLogout}>
+              <Button variant="ghost" onClick={handleLogout}>
                 <LogOut className="h-4 w-4 mr-2" />
                 Logout
-              </Button> */}
+              </Button>
             </CardTitle>
             <CardDescription>Your Quronymous Information</CardDescription>
           </CardHeader>
@@ -137,9 +93,21 @@ export default function Main() {
             <div>
               <p className="font-semibold">Your unique link:</p>
               <p className="break-all text-sm bg-secondary p-2 rounded">{user.uniqueLink}</p>
-              <Button onClick={() => copyToClipboard(user.uniqueLink)} variant="outline" className="mt-2">
+              <Button onClick={copyLinkToClipboard} variant="outline" className="mt-2">
                 Copy Link
                 <Copy className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
+            <div>
+              <p className="font-semibold">Your username:</p>
+              <p className="text-sm">{user.username}</p>
+            </div>
+            <div>
+              <p className="font-semibold">Your password:</p>
+              <p className="break-all text-sm bg-secondary p-2 rounded">{user.password}</p>
+              <Button onClick={copyPasswordToClipboard} variant="outline" className="mt-2">
+                Copy Password
+                <Key className="ml-2 h-4 w-4" />
               </Button>
             </div>
           </CardContent>

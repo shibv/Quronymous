@@ -64,12 +64,7 @@ export default function SendMessage() {
             <Textarea
               placeholder="Type your anonymous message or question here..."
               value={message}
-              onChange={(e) => {
-                setMessage(e.target.value)
-                if (isSending) {
-                  setIsSending(false)
-                }
-              }}
+              onChange={(e) => setMessage(e.target.value)}
               rows={6}
               className="resize-none"
             />

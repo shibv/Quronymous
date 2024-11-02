@@ -1,29 +1,34 @@
-import { NextResponse } from 'next/server';
-import connectToDatabase from '@/lib/mongodb';
-import User from '@/models/User';
-import Message from '@/models/Message';
+import { NextResponse } from 'next/server'
+import dbConnect from '@/lib/mongodb'
+import User from '@/models/User'
+import Message from '@/models/Message'
 
 export async function POST(req) {
-  await connectToDatabase();
+  await dbConnect()
+
+  const { id, message } = await req.json()
+
+  if (!id || !message) {
+    return NextResponse.json({ error: 'ID and message are required' }, { status: 400 })
+  }
 
   try {
-    const { id, message } = await req.json();
+    const user = await User.findOne({ uniqueLink: { $regex: id, $options: 'i' } })
 
-    if (!id || !message || typeof id !== 'string' || typeof message !== 'string') {
-      return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
-    }
-
-    const user = await User.findOne({ uniqueId: id });
     if (!user) {
-      return NextResponse.json({ error: 'Invalid link' }, { status: 400 });
+      return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
 
-    const newMessage = new Message({ username: user.username, message });
-    await newMessage.save();
+    const newMessage = new Message({
+      content: message,
+      recipient: user._id,
+    })
 
-    return NextResponse.json({ success: true });
+    await newMessage.save()
+
+    return NextResponse.json({ message: 'Message sent successfully' })
   } catch (error) {
-    console.error('Error in send-message:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    console.error('Send message error:', error)
+    return NextResponse.json({ error: 'Failed to send message' }, { status: 500 })
   }
 }
