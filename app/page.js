@@ -140,30 +140,31 @@ function MainContent() {
           </Card>
         )}
 
-        <Card className="shadow-lg mb-8">
-          <CardHeader>
-            <CardTitle className="text-2xl font-bold flex items-center justify-between">
-              <span>Welcome, {user.name}</span>
-              <Button variant="ghost" onClick={handleLogout}>
-                <LogOut className="h-4 w-4 mr-2" />
-                Logout
-              </Button>
-            </CardTitle>
-            <CardDescription>Your Quronymous Information</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <p className="font-semibold">Your unique link:</p>
-              <p className="break-all text-sm bg-secondary p-2 rounded">{user.uniqueLink}</p>
-              <Button onClick={() => copyToClipboard(user.uniqueLink)} variant="outline" className="mt-2">
-                Copy Link
-                <Copy className="ml-2 h-4 w-4" />
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+<Card className="shadow-lg mb-8" style={{ background: "linear-gradient(90deg, #fff7ad, #ffa9f9)" }} >
+  <CardHeader>
+    <CardTitle className="text-2xl font-bold flex items-center justify-between">
+      <span>Welcome, {user.name}</span>
+      <Button variant="outline" onClick={handleLogout}>
+        <LogOut className="h-4 w-4 mr-2" />
+        Logout
+      </Button>
+    </CardTitle>
+    <CardDescription>Your Quronymous Information</CardDescription>
+  </CardHeader>
+  <CardContent className="space-y-4">
+    <div>
+      <p className="font-semibold">Your unique link:</p>
+      <p className="break-all text-sm bg-secondary p-2 rounded">{user.uniqueLink}</p>
+      <Button onClick={() => copyToClipboard(user.uniqueLink)} variant="outline" className="mt-2">
+        Copy Link
+        <Copy className="ml-2 h-4 w-4" />
+      </Button>
+    </div>
+  </CardContent>
+</Card>
 
-        <Card className="shadow-lg">
+
+        <Card className="shadow-lg" style={{ background: "linear-gradient(90deg, #fff7ad, #ffa9f9)" }}>
           <CardHeader>
             <CardTitle className="text-2xl font-bold flex items-center justify-between">
               <span className='flex items-center'>

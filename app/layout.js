@@ -42,7 +42,10 @@ export default function RootLayout({ children }) {
      
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 dark:bg-gray-900`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div className="flex flex-col min-h-screen">
+          <div className="flex flex-col min-h-screen" style={{
+  background: "linear-gradient(90deg, #fffbea, #ffe3f9)"
+}}
+ >
             <Navbar />
             <main className="flex-grow">{children}</main>
             <footer className="py-4 text-center text-sm text-gray-500 dark:text-gray-400">

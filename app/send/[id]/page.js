@@ -62,7 +62,7 @@ export default function SendMessage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <Card className="shadow-lg">
+        <Card className="shadow-lg" style={{ background: "linear-gradient(1deg, #fff7ad, #ffa9f9)" }}>
           <CardHeader>
             <CardTitle className="text-2xl font-bold flex items-center">
               <MessageCircle className="h-6 w-6 mr-2 text-primary" />
@@ -76,7 +76,8 @@ export default function SendMessage() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               rows={6}
-              className="resize-none"
+           
+              className="resize-none bg-white"
             />
             <div className="flex space-x-2">
               <Button variant="outline" onClick={() => setShowEmojiPicker(!showEmojiPicker)}>

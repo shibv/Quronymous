@@ -56,7 +56,7 @@ export default function Login() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <Card className="shadow-lg">
+        <Card className="shadow-lg" style={{ background: "linear-gradient(90deg, #fff7ad, #ffa9f9)" }}>
           <CardHeader>
             <CardTitle className="text-2xl font-bold flex items-center">
               <LogIn className="h-6 w-6 mr-2 text-primary" />
@@ -74,6 +74,7 @@ export default function Login() {
                   id="username"
                   type="text"
                   placeholder="Enter your username"
+                  className="bg-white"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   required
@@ -87,6 +88,7 @@ export default function Login() {
                   id="password"
                   type="password"
                   placeholder="Enter your password"
+                  className="bg-white"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
@@ -108,7 +110,7 @@ export default function Login() {
             <CardFooter className="text-center">
               <p className="text-sm text-muted-foreground">
                 Don&apos;t have an account?{' '}
-                <Link href="/register" className="font-semibold underline">
+                <Link href="/register" className="font-semibold underline text-black">
                   Register
                 </Link>
               </p>

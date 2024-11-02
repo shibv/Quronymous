@@ -59,7 +59,7 @@ export default function Home() {
   }
 
   return (
-    <div className="container mx-auto p-4 max-w-4xl">
+    <div className="container mx-auto p-4 max-w-4xl" >
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -69,8 +69,8 @@ export default function Home() {
         <h1 className="text-4xl font-bold mb-4">Welcome to Quronymous</h1>
         <p className="text-xl text-gray-600 dark:text-gray-300">Ask questions and send anonymous messages to your favorite people, inspired by Anonymous Message.</p>
       </motion.div>
-      <div className="grid md:grid-cols-2 gap-8">
-        <Card className="shadow-lg">
+      <div className="grid md:grid-cols-2 gap-8"  >
+        <Card className="shadow-lg" style={{ background: "linear-gradient(90deg, #fff7ad, #ffa9f9)" }}>
           <CardHeader>
             <CardTitle className="text-2xl font-bold">Generate Your Link</CardTitle>
             <CardDescription>Create a unique link to receive anonymous messages</CardDescription>
@@ -107,7 +107,7 @@ export default function Home() {
             )}
           </CardContent>
         </Card>
-        <Card className="shadow-lg">
+        <Card className="shadow-lg" style={{ background: "linear-gradient(90deg, #fff7ad, #ffa9f9)" }}>
           <CardHeader>
             <CardTitle className="text-2xl font-bold">How It Works</CardTitle>
             <CardDescription>Learn about Quronymous features</CardDescription>

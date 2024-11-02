@@ -55,7 +55,7 @@ export default function Register() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <Card className="shadow-lg">
+        <Card className="shadow-lg" style={{ background: "linear-gradient(90deg, #fff7ad, #ffa9f9)" }}>
           <CardHeader>
             <CardTitle className="text-2xl font-bold flex items-center">
               <UserPlus className="h-6 w-6 mr-2 text-primary" />
@@ -72,6 +72,7 @@ export default function Register() {
                 <Input
                   id="name"
                   type="text"
+                  className="bg-white"
                   placeholder="Enter your name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -94,7 +95,7 @@ export default function Register() {
             <CardFooter className="text-center">
               <p className="text-sm text-muted-foreground">
                 Already have an account?{' '}
-                <Link href="/login" className="font-semibold underline">
+                <Link href="/login" className="font-semibold underline text-black">
                   Login
                 </Link>
               </p>
