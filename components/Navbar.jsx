@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { ModeToggle } from "@/components/mode-toggle"
 import { MessageCircle, UserPlus, LogIn, LogOut } from "lucide-react"
 import { toast } from 'react-toastify'
+import Image from 'next/image'; 
 
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -43,8 +44,8 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4">
-        <Link href="/" className="flex items-center space-x-2">
-          <MessageCircle className="h-6 w-6 text-primary" />
+        <Link href="/" className="flex items-center space-x-1">
+        <Image src="/logo_bcg.png" alt="Quronymous Logo" width={30} height={30} className="h-10 w-10 text-primary" />
           <span className="font-bold text-xl">Quronymous</span>
         </Link>
         <div className="flex items-center space-x-4">
