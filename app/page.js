@@ -35,7 +35,7 @@ function MainContent() {
         const userData = await response.json();
         setUser(userData);
       } catch (error) {
-        toast.error('Failed to load user data. Please login again.');
+        // toast.error('Failed to load user data. Please login again.');
         router.push('/main');
       }
     };
@@ -49,7 +49,7 @@ function MainContent() {
         const messageData = await response.json();
         setMessages(messageData);
       } catch (error) {
-        toast.error('Failed to load messages');
+        // toast.error('Failed to load messages');
       }
     };
 

@@ -138,7 +138,7 @@ export default function Home() {
           </CardFooter> */}
         </Card>
       </div>
-      <ToastContainer position="bottom-center" />
+      <ToastContainer position="top-center" />
     </div>
   )
 }

@@ -116,7 +116,7 @@ export default function Login() {
           </form>
         </Card>
       </motion.div>
-      <ToastContainer position="bottom-center" />
+      <ToastContainer position="top-center" />
     </div>
   )
 }

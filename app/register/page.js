@@ -102,7 +102,7 @@ export default function Register() {
           </form>
         </Card>
       </motion.div>
-      <ToastContainer position="bottom-center" />
+      <ToastContainer position="top-center" />
     </div>
   )
 }

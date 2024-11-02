@@ -125,7 +125,7 @@ export default function SendMessage() {
           </CardFooter>
         </Card>
       </motion.div>
-      <ToastContainer position="bottom-center" />
+      <ToastContainer position="top-center" />
     </div>
   )
 }
