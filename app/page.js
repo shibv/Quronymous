@@ -151,7 +151,8 @@ export default function Main() {
               <MessageCircle className="h-6 w-6 mr-2 text-primary" />
               Your Messages
             </CardTitle>
-            <CardDescription>Anonymous messages you've received</CardDescription>
+            <CardDescription>Anonymous messages you&#39;ve received</CardDescription>
+
           </CardHeader>
           <CardContent>
             <AnimatePresence>
