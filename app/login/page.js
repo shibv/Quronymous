@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
@@ -103,6 +104,14 @@ export default function Login() {
                   'Login'
                 )}
               </Button>
+            </CardFooter>
+            <CardFooter className="text-center">
+              <p className="text-sm text-muted-foreground">
+                Don&apos;t have an account?{' '}
+                <Link href="/register" className="font-semibold underline">
+                  Register
+                </Link>
+              </p>
             </CardFooter>
           </form>
         </Card>

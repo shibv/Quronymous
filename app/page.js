@@ -124,8 +124,12 @@ function MainContent() {
 
         <Card className="shadow-lg mb-8">
           <CardHeader>
-            <CardTitle className="text-2xl font-bold flex items-center justify-between">
+          <CardTitle className="text-2xl font-bold flex items-center justify-between">
               <span>Welcome, {user.name}</span>
+              <Button variant="ghost" onClick={handleLogout}>
+                <LogOut className="h-4 w-4 mr-2" />
+                Logout
+              </Button>
             </CardTitle>
             <CardDescription>Your Quronymous Information</CardDescription>
           </CardHeader>

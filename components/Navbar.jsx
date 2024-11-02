@@ -48,7 +48,7 @@ export default function Navbar() {
           <span className="font-bold text-xl">Quronymous</span>
         </Link>
         <div className="flex items-center space-x-4">
-          {isLoggedIn ? (
+          {/* {isLoggedIn ? (
             <Button variant="ghost" size="sm" onClick={handleLogout}>
               <LogOut className="h-4 w-4 mr-2" />
               Logout
@@ -68,7 +68,7 @@ export default function Navbar() {
                 </Button>
               </Link>
             </>
-          )}
+          )} */}
           <ModeToggle />
         </div>
       </div>
