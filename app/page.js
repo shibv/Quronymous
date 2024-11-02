@@ -1,79 +1,79 @@
-'use client'
+'use client';
 
-import { useState, useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { Button } from "@/components/ui/button"
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
-import { toast, ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-import { motion, AnimatePresence } from 'framer-motion'
-import { MessageCircle, Copy, LogOut, Key, Eye, EyeOff } from 'lucide-react'
+import { Suspense, useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { motion, AnimatePresence } from 'framer-motion';
+import { MessageCircle, Copy, LogOut, Key, Eye, EyeOff } from 'lucide-react';
 
-export default function Main() {
-  const [user, setUser] = useState(null)
-  const [messages, setMessages] = useState([])
-  const [showPasswordNotice, setShowPasswordNotice] = useState(false)
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
-  const router = useRouter()
-  const searchParams = useSearchParams()
+function MainContent() {
+  const [user, setUser] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [showPasswordNotice, setShowPasswordNotice] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const initialPassword = searchParams.get('password')
+  const initialPassword = searchParams.get('password');
 
   useEffect(() => {
     if (initialPassword) {
-      setShowPasswordNotice(true)
+      setShowPasswordNotice(true);
     }
-  }, [initialPassword])
+  }, [initialPassword]);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch('/api/user')
+        const response = await fetch('/api/user');
         if (!response.ok) {
-          throw new Error('Failed to fetch user data')
+          throw new Error('Failed to fetch user data');
         }
-        const userData = await response.json()
-        setUser(userData)
+        const userData = await response.json();
+        setUser(userData);
       } catch (error) {
-        toast.error('Failed to load user data. Please login again.')
-        router.push('/login')
+        toast.error('Failed to load user data. Please login again.');
+        router.push('/login');
       }
-    }
+    };
 
     const fetchMessages = async () => {
       try {
-        const response = await fetch('/api/messages')
+        const response = await fetch('/api/messages');
         if (!response.ok) {
-          throw new Error('Failed to fetch messages')
+          throw new Error('Failed to fetch messages');
         }
-        const messageData = await response.json()
-        setMessages(messageData)
+        const messageData = await response.json();
+        setMessages(messageData);
       } catch (error) {
-        toast.error('Failed to load messages')
+        toast.error('Failed to load messages');
       }
-    }
+    };
 
-    fetchUserData()
-    fetchMessages()
-  }, [router])
+    fetchUserData();
+    fetchMessages();
+  }, [router]);
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text)
       .then(() => toast.success('Copied to clipboard!'))
-      .catch(() => toast.error('Failed to copy'))
-  }
+      .catch(() => toast.error('Failed to copy'));
+  };
 
   const handleLogout = async () => {
     try {
-      await fetch('/api/logout', { method: 'POST' })
-      router.push('/login')
+      await fetch('/api/logout', { method: 'POST' });
+      router.push('/login');
     } catch (error) {
-      toast.error('Failed to logout')
+      toast.error('Failed to logout');
     }
-  }
+  };
 
   if (!user) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
   return (
@@ -112,8 +112,8 @@ export default function Main() {
                 </Button>
               </div>
               <Button onClick={() => {
-                copyToClipboard(initialPassword)
-                setShowPasswordNotice(false)
+                copyToClipboard(initialPassword);
+                setShowPasswordNotice(false);
               }} variant="outline" className="mt-2">
                 Copy Password
                 <Copy className="ml-2 h-4 w-4" />
@@ -126,10 +126,6 @@ export default function Main() {
           <CardHeader>
             <CardTitle className="text-2xl font-bold flex items-center justify-between">
               <span>Welcome, {user.name}</span>
-              {/* <Button variant="ghost" onClick={handleLogout}>
-                <LogOut className="h-4 w-4 mr-2" />
-                Logout
-              </Button> */}
             </CardTitle>
             <CardDescription>Your Quronymous Information</CardDescription>
           </CardHeader>
@@ -151,8 +147,7 @@ export default function Main() {
               <MessageCircle className="h-6 w-6 mr-2 text-primary" />
               Your Messages
             </CardTitle>
-            <CardDescription>Anonymous messages you&#39;ve received</CardDescription>
-
+            <CardDescription>Anonymous messages you&apos;ve received</CardDescription>
           </CardHeader>
           <CardContent>
             <AnimatePresence>
@@ -187,5 +182,13 @@ export default function Main() {
       </motion.div>
       <ToastContainer position="bottom-center" />
     </div>
-  )
+  );
+}
+
+export default function Main() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <MainContent />
+    </Suspense>
+  );
 }
