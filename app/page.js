@@ -57,6 +57,20 @@ function MainContent() {
     fetchMessages();
   }, [router]);
 
+  const refreshMessages = async () => {
+    try {
+      const response = await fetch('/api/messages');
+      if (!response.ok) {
+        throw new Error('Failed to fetch messages');
+      }
+      const messageData = await response.json();
+      setMessages(messageData);
+      toast.success('Messages refreshed!');
+    } catch (error) {
+      toast.error('Failed to refresh messages');
+    }
+  };
+
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text)
       .then(() => toast.success('Copied to clipboard!'))
@@ -84,49 +98,48 @@ function MainContent() {
         transition={{ duration: 0.5 }}
       >
         {showPasswordNotice && (
-         <Card className="shadow-lg mb-8 bg-yellow-200 dark:bg-yellow-800 border border-yellow-400 dark:border-yellow-600">
-         <CardHeader>
-           <CardTitle className="text-xl font-semibold text-gray-800 dark:text-gray-200">
-             Important: Save Your Login Information(Take a screenshot)
-           </CardTitle>
-           <CardDescription className="text-gray-700 dark:text-gray-300">
-             This is your only chance to copy your login information. Save it securely!
-             We recommend you take a screenshot and store it somewhere safe.
-           </CardDescription>
-         </CardHeader>
-         <CardContent className="space-y-4">
-           <div>
-             <p className="font-semibold text-gray-800 dark:text-gray-200">Username:</p>
-             <p className="text-sm bg-secondary p-2 rounded text-gray-800 dark:text-gray-200 dark:bg-gray-700">{user.username}</p>
-             <Button onClick={() => copyToClipboard(user.username)} variant="outline" className="mt-2">
-               Copy Username
-               <Copy className="ml-2 h-4 w-4" />
-             </Button>
-           </div>
-           <div className="flex items-center mt-4">
-             <p className="font-semibold text-gray-800 dark:text-gray-200">Password:</p>
-             <p className="text-sm bg-secondary p-2 rounded flex-1 text-gray-800 dark:text-gray-200 dark:bg-gray-700">
-               {isPasswordVisible ? initialPassword : '••••••••••'}
-             </p>
-             <Button variant="ghost" onClick={() => setIsPasswordVisible(!isPasswordVisible)} className="ml-2">
-               {isPasswordVisible ? <EyeOff className="h-5 w-5 text-gray-800 dark:text-gray-200" /> : <Eye className="h-5 w-5 text-gray-800 dark:text-gray-200" />}
-             </Button>
-           </div>
-           <Button onClick={() => {
-             copyToClipboard(initialPassword);
-             setShowPasswordNotice(false);
-           }} variant="outline" className="mt-2">
-             Copy Password
-             <Copy className="ml-2 h-4 w-4" />
-           </Button>
-         </CardContent>
-       </Card>
-       
+          <Card className="shadow-lg mb-8 bg-yellow-200 dark:bg-yellow-800 border border-yellow-400 dark:border-yellow-600">
+            <CardHeader>
+              <CardTitle className="text-xl font-semibold text-gray-800 dark:text-gray-200">
+                Important: Save Your Login Information (Take a screenshot)
+              </CardTitle>
+              <CardDescription className="text-gray-700 dark:text-gray-300">
+                This is your only chance to copy your login information. Save it securely!
+                We recommend you take a screenshot and store it somewhere safe.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <p className="font-semibold text-gray-800 dark:text-gray-200">Username:</p>
+                <p className="text-sm bg-secondary p-2 rounded text-gray-800 dark:text-gray-200 dark:bg-gray-700">{user.username}</p>
+                <Button onClick={() => copyToClipboard(user.username)} variant="outline" className="mt-2">
+                  Copy Username
+                  <Copy className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
+              <div className="flex items-center mt-4">
+                <p className="font-semibold text-gray-800 dark:text-gray-200">Password:</p>
+                <p className="text-sm bg-secondary p-2 rounded flex-1 text-gray-800 dark:text-gray-200 dark:bg-gray-700">
+                  {isPasswordVisible ? initialPassword : '••••••••••'}
+                </p>
+                <Button variant="ghost" onClick={() => setIsPasswordVisible(!isPasswordVisible)} className="ml-2">
+                  {isPasswordVisible ? <EyeOff className="h-5 w-5 text-gray-800 dark:text-gray-200" /> : <Eye className="h-5 w-5 text-gray-800 dark:text-gray-200" />}
+                </Button>
+              </div>
+              <Button onClick={() => {
+                copyToClipboard(initialPassword);
+                setShowPasswordNotice(false);
+              }} variant="outline" className="mt-2">
+                Copy Password
+                <Copy className="ml-2 h-4 w-4" />
+              </Button>
+            </CardContent>
+          </Card>
         )}
 
         <Card className="shadow-lg mb-8">
           <CardHeader>
-          <CardTitle className="text-2xl font-bold flex items-center justify-between">
+            <CardTitle className="text-2xl font-bold flex items-center justify-between">
               <span>Welcome, {user.name}</span>
               <Button variant="ghost" onClick={handleLogout}>
                 <LogOut className="h-4 w-4 mr-2" />
@@ -149,9 +162,14 @@ function MainContent() {
 
         <Card className="shadow-lg">
           <CardHeader>
-            <CardTitle className="text-2xl font-bold flex items-center">
-              <MessageCircle className="h-6 w-6 mr-2 text-primary" />
-              Your Messages
+            <CardTitle className="text-2xl font-bold flex items-center justify-between">
+              <span className='flex items-center'>
+                <MessageCircle className="h-6 w-6 mr-2 text-primary" />
+                Your Messages
+              </span>
+              <Button variant="outline" onClick={refreshMessages}>
+                Refresh Messages
+              </Button>
             </CardTitle>
             <CardDescription>Anonymous messages you&apos;ve received</CardDescription>
           </CardHeader>
@@ -186,7 +204,7 @@ function MainContent() {
           </CardContent>
         </Card>
       </motion.div>
-      <ToastContainer position="bottom-center" />
+      <ToastContainer position="top-center" />
     </div>
   );
 }

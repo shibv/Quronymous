@@ -67,7 +67,7 @@ export default function Home() {
         className="text-center mb-8"
       >
         <h1 className="text-4xl font-bold mb-4">Welcome to Quronymous</h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300">Ask and answer questions anonymously, inspired by Quora</p>
+        <p className="text-xl text-gray-600 dark:text-gray-300">Ask questions and send anonymous messages to your favorite Quora users, inspired by Anonymous Message.</p>
       </motion.div>
       <div className="grid md:grid-cols-2 gap-8">
         <Card className="shadow-lg">
@@ -123,7 +123,7 @@ export default function Home() {
             </div>
             <div className="flex items-start space-x-3">
               <MessageCircle className="h-6 w-6 mt-1 text-primary" />
-              <p>Receive anonymous questions and feedback</p>
+              <p>Receive anonymous questions and messages</p>
             </div>
             <div className="flex items-start space-x-3">
               <MessageCircle className="h-6 w-6 mt-1 text-primary" />
