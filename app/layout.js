@@ -41,7 +41,7 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
      
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 dark:bg-gray-900`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="light" >
           <div className="flex flex-col min-h-screen" style={{
   background: "linear-gradient(90deg, #fffbea, #ffe3f9)"
 }}
